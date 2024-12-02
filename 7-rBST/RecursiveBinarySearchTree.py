@@ -211,6 +211,45 @@ class BinarySearchTree:
                 queue.append(current_node.right)
 
         return results
+        
+    def dfs_pre_order(self):
+        """
+        Performs a depth-first search (DFS) pre-order traversal on the binary tree.
+
+        Pre-order traversal visits nodes in the following order:
+        1. Visit the current node.
+        2. Traverse the left subtree.
+        3. Traverse the right subtree.
+
+        Returns:
+            list: A list of node values in pre-order traversal order.
+        """
+        results = []
+
+        def traverse(current_node):
+            """
+            Recursively traverses the tree in pre-order.
+
+            Args:
+                node (Node): The current node being visited.
+            """
+            if current_node is None:
+                return
+            
+            # Visit the current node
+            results.append(current_node.value)
+            
+            # Traverse the left subtree
+            if current_node.left is not None:
+                traverse(current_node.left)
+            
+            # Traverse the right subtree
+            if current_node.right is not None:
+                traverse(current_node.right)
+
+        # Start traversal from the root node
+        traverse(self.root)
+        return results
 
 # Example usage
 if __name__ == "__main__":
@@ -227,3 +266,11 @@ if __name__ == "__main__":
     
     # Verify the tree structure
     print(tree.r_contains(5))  # Output: False
+
+    # Perform BFS traversal
+    bfs_result = tree.breadth_first_search()
+    print("BFS Traversal:", bfs_result)  # Output: [10, 5, 15, 2, 7]
+
+    # Perform DFS Pre-Order traversal
+    dfs_result = tree.dfs_pre_order()
+    print("DFS Pre-Order Traversal:", dfs_result)  # Output: [10, 5, 2, 7, 15]
