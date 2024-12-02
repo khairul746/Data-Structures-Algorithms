@@ -21,6 +21,7 @@ class BinarySearchTree:
         r_contains(value) : Recursively checks if a value exists in the tree.
         min_value(current_node) : Finds the minimum value starting from the given node.
         delete_node(value) : Delete a node with the specified value from the tree.
+        breadth_first_search(): Performs a breadth-first search (BFS) on the tree and returns the values in level-order.
     """
     def __init__(self):
         self.root = None
@@ -176,6 +177,40 @@ class BinarySearchTree:
             value: The value to delete from the tree.
         """
         self.__delete_node(self.root, value)
+
+    def breadth_first_search(self):
+        """
+        Performs a breadth-first search (BFS) traversal on the binary tree.
+
+        BFS visits each level of the tree one at a time, starting from the root.
+
+        Returns:
+            list: A list of node values in BFS order.
+        """
+        # If the tree is empty, return an empty list
+        if self.root is None:
+            return []
+
+        # Initialize the queue and the results list
+        queue = [self.root]  # Start with the root node in the queue
+        results = []
+
+        # Traverse the tree level by level
+        while queue:
+            # Dequeue the first node in the queue
+            current_node = queue.pop(0)
+            # Add the current node's value to the results list
+            results.append(current_node.value)
+
+            # Enqueue the left child if it exists
+            if current_node.left is not None:
+                queue.append(current_node.left)
+
+            # Enqueue the right child if it exists
+            if current_node.right is not None:
+                queue.append(current_node.right)
+
+        return results
 
 # Example usage
 if __name__ == "__main__":
